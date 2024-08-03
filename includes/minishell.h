@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tete <tete@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: stephaniemanrique <stephaniemanrique@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 14:51:58 by Henriette         #+#    #+#             */
-/*   Updated: 2024/08/01 14:43:43 by tete             ###   ########.fr       */
+/*   Updated: 2024/08/04 01:21:31 by stephaniema      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 # include <fcntl.h>
 # include "../libft/libft.h"
 
-/* proposal for structure to hold the different variables of each command (every command node separated by pipe from the next one) 
-potentially will be adjusted or expanded according to our needs 
---> words stores all commands and command arguments / red_in and red_out store the input (<) and 
+/* proposal for structure to hold the different variables of each command (every command node separated by pipe from the next one)
+potentially will be adjusted or expanded according to our needs
+--> words stores all commands and command arguments / red_in and red_out store the input (<) and
 output (>) redirections, heredoc stores heredoc (<<), app_out stores append output redirection (>>) */
 typedef struct s_input
 {
@@ -58,7 +58,7 @@ typedef struct s_elements
 } t_elements;
 
 /* parsing struct */
-int parse_line(char *cmd_line, t_input **command);
+int parse_line(char *cmd_line, t_input **command, t_env *env_list);
 char **split_for_parsing(char *cmd_line, t_elements *elmts);
 void	count_elements(char *str, t_elements *elmts);
 int	count_characters(char *str, int **inside_quote);
@@ -79,7 +79,7 @@ void	free_command(t_input **command);
 
 /*Builtin commands*/
 void	what_builtin(char **command_words, t_env *env_list);
-void	echo(char **str, t_env *env_list);
+void	echo(char **str);
 void	pwd(void);
 void	cd(char *path);
 void	cmd_env(t_env *list);
@@ -91,5 +91,7 @@ char	*handle_quoting(char *str, t_env *env_list);
 char	*find_env_value(char *key, t_env *env_list, size_t len);
 size_t	calc_expanded_len(char *str, t_env *env_list);
 
+
+void	expand_args(t_input *input, t_env *env_list);
 
 #endif

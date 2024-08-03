@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tete <tete@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: stephaniemanrique <stephaniemanrique@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:49:53 by Henriette         #+#    #+#             */
-/*   Updated: 2024/08/02 12:27:48 by tete             ###   ########.fr       */
+/*   Updated: 2024/08/03 12:35:02 by stephaniema      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/* parses the command line in several steps: 
+/* parses the command line in several steps:
 	-- checks for syntax errors (TO DO)
 	-- splits command line into seperate elements by whitespace but only if not inside quotes (still needs adjustment for elevated case of nested quote with same quote type)
-	-- distributes all separates elements into their corresponding command arrays 
+	-- distributes all separates elements into their corresponding command arrays
 			- words--> done for single command, no pipe yet --> TO DO: several commands divided by pipes
 			- redirections (TO DO) */
 
-int parse_line(char *cmd_line, t_input **command)
-{	
+int parse_line(char *cmd_line, t_input **command, t_env *env_list)
+{
 	t_elements elmts;
 	//int	i;
-	
+
 	//i = 0;
 	if (!*cmd_line)
 		return (-1);
@@ -36,6 +36,7 @@ int parse_line(char *cmd_line, t_input **command)
 		i++;
 	}*/
 	// add redirections, heredoc, and separate commands divided by pipes
+	expand_args(*command, env_list);
 	return (0);
 }
 
